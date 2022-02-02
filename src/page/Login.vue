@@ -2,9 +2,9 @@
   <div class="login-container">
     <h1 class="title">My Widget</h1>
     <div class="login-frm">
-      <input type="text" placeholder="ID">
-      <input type="password" placeholder="PW">
-      <button type="button">Login</button>
+      <input v-model="userId" type="text" placeholder="ID">
+      <input v-model="userPw" type="password" placeholder="PW">
+      <button @click="login" type="button">Login</button>
     </div>
     <div class="middle-line"></div>
     <linkWrap/>
@@ -14,16 +14,39 @@
 <script>
 import linkWrap from '../components/AccountLink.vue'
 import { mapMutations } from 'vuex'
+import ajax from '@/assets/ajax'
 
 export default {
   name: "login",
+  data() {
+    return {
+      userId: "",
+      userPw: ""
+    }
+  },
   components: {
     linkWrap
   },
   methods: {
     ...mapMutations({
       setNowPage: 'global/setNowPage'
-    })
+    }),
+    login() {
+      const user = {
+        memId: this.userId,
+        memPw: this.userPw
+      }
+
+      if(
+        user.memId.trim() !== "" &&
+        user.memPw.trim() !== ""
+        ) {
+          ajax.get("/hello", 'json', user)
+          .then(res => {
+            console.log(res)
+          })
+        }
+    }
   },
   mounted() {
     this.setNowPage("login")
