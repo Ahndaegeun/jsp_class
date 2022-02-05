@@ -3,7 +3,7 @@
     <header>
       <h1 class="title">My widgets</h1>
       <div class="btn-wrap">
-        <button type="button">+</button>
+        <button type="button" @click="setIsOpen">+</button>
         <button type="button">-</button>
       </div>
     </header>
@@ -16,6 +16,7 @@
       <ToDo class="todo-t"/>
     </main>
 
+    <AddWidget v-if="this.$store.state.widget.isOpen"/>
   </div>
 </template>
 
@@ -25,7 +26,8 @@ import Clock from '../components/Clock.vue'
 import DDay from '../components/D_Day.vue'
 import ToDo from '../components/ToDo.vue'
 import Weather from '../components/Weather.vue'
-
+import AddWidget from '../components/AddWidget.vue'
+import { mapMutations } from 'vuex'
 
 export default {
   name: "main",
@@ -34,13 +36,18 @@ export default {
     Clock,
     DDay,
     ToDo,
-    Weather
+    Weather,
+    AddWidget
   },
   data() {
     return {
+
     }
   },
   methods: {
+    ...mapMutations({
+      setIsOpen: 'widget/setIsOpen'
+    })
   }
 }
 </script>
@@ -54,6 +61,7 @@ export default {
   align-items: center;
   padding: 20px;
   min-height: 100vh;
+  position: relative;
 }
 
 header {

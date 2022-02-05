@@ -112,8 +112,8 @@ export default {
 .day-list li {
   padding: 1px;
   border-radius: 50%;
-  width: 10px;
-  height: 10px;
+  width: 12px;
+  height: 12px;
   display: flex;
   justify-content: center;
   align-items: center;

@@ -2,8 +2,8 @@
   <div class="login-container">
     <h1 class="title">My Widget</h1>
     <div class="login-frm">
-      <input v-model="userId" type="text" placeholder="ID">
-      <input v-model="userPw" type="password" placeholder="PW">
+      <input spellcheck="false" v-model="userId" type="text" placeholder="ID">
+      <input spellcheck="false" v-model="userPw" type="password" placeholder="PW">
       <button @click="login" type="button">Login</button>
     </div>
     <div class="middle-line"></div>
@@ -21,7 +21,11 @@ export default {
   data() {
     return {
       userId: "",
-      userPw: ""
+      userPw: "",
+      user: {
+        id: '',
+        pw: ''
+      }
     }
   },
   components: {

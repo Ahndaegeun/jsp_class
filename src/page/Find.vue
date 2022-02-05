@@ -3,19 +3,20 @@
 
     <h2 class="title">Find ID</h2>
     <div class="login-frm">
-      <input type="text" placeholder="NAME">
-      <input type="email" placeholder="E-MAIL">
-      <div v-if="isFind" class="find-id">your Id : {{findId}}</div>
-      <button type="button">Find</button>
+      <input spellcheck="false" v-model="findId.name" type="text" placeholder="NAME">
+      <input spellcheck="false" v-model="findId.email" type="email" placeholder="E-MAIL">
+      <div v-if="idResult.isFind" class="find-id">{{idResult.text}}</div>
+      <button @click="findIdBtnClick" type="button">Find</button>
     </div>
     <div class="middle-line"></div>
 
     <h2 class="title">Reset Password</h2>
     <div class="login-frm">
-      <input type="text" placeholder="ID">
-      <input type="text" placeholder="NAME">
-      <input type="email" placeholder="E-MAIL">
-      <button type="button">Find</button>
+      <input spellcheck="false" v-model="resetPw.id" type="text" placeholder="ID">
+      <input spellcheck="false" v-model="resetPw.name" type="text" placeholder="NAME">
+      <input spellcheck="false" v-model="resetPw.email" type="email" placeholder="E-MAIL">
+      <div v-if="pwResult.isFind" class="reset-pw">{{pwResult.text}}</div>
+      <button @click="resetPwBtnClick" type="button">Find</button>
     </div>
     <div class="middle-line"></div>
 
@@ -34,14 +35,50 @@ export default {
   },
   data() {
     return {
-      isFind: false,
-      findId: ""
+      findId: {
+        name: "",
+        email: ""
+      },
+      resetPw: {
+        id: "",
+        name: "",
+        email: ""
+      },
+      idResult: {
+        isFind: false,
+        text: ""
+      },
+      pwResult: {
+        isFind: false,
+        text: ""
+      }
     }
   },
   methods: {
     ...mapMutations({
       setNowPage: 'global/setNowPage'
-    })
+    }),
+    findIdBtnClick() {
+      if(
+        this.findId.name.trim() !== '' &&
+        this.findId.email.trim() !== ''
+      ) {
+        console.log('ajax')
+      } else {
+        console.log('focusing')
+      }
+    },
+    resetPwBtnClick() {
+      if(
+        this.resetPw.id &&
+        this.resetPw.name &&
+        this.resetPw.email
+      ) {
+        console.log('ajax')
+      } else {
+        console.log('focusing')
+      }
+    }
   },
   mounted() {
     this.setNowPage('find')
